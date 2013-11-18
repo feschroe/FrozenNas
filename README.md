@@ -4,15 +4,27 @@ FrozenNas
 What is it?
 -----------
 
-FrozenNas is a Amazon S3 client supporting Glacier storage class in combination with [EncFS](http://en.wikipedia.org/wiki/EncFS) for Android.
+FrozenNas is a [Amazon S3] (http://aws.amazon.com/s3/) client supporting Glacier storage class in combination with [EncFS](http://en.wikipedia.org/wiki/EncFS) for Android.
 Files stored in Amazon S3 using Glacier storage class have to be "restored" first. 3 to 5 hours later a download is possible.
-For privacy reasons it makes sense to encrypt your files before uploading them to the cloudservice like Amazon S3. Using EncFS filenames can also
-be encrypted. FrozenNas lets you select, restore, download and decrypt your files from Amazon S3. 
+For privacy reasons it makes sense to encrypt your files before uploading them to a cloudservice like Amazon S3. Using [EncFS](http://en.wikipedia.org/wiki/EncFS) supports content as well as filename 
+encryption. FrozenNas lets you select, restore, download and decrypt files from Amazon S3, which content and filenames were encrypted using [EncFS](http://en.wikipedia.org/wiki/EncFS) or compatibles (e.g. [Boxcryptor classic] (https://www.boxcryptor.com/en/boxcryptor-classic))
  
 Why to use it?
 --------------
 
+Cloud data storage is a useful service to replace your home NAS [Network Attached Storage] (http://en.wikipedia.org/wiki/Network-attached_storage).
+Unfortunately bigger amounts of data can still be pricey. Amazon offers to store your files using a special Glacier storage class to minimize costs.
+This comes with limited availability. Files with this storage class has to be "restored", which usually takes 3-5 hours before they can be accessed.
+For files which are rarely needed like your home video collection, this can be an acceptable limitation. You will definitely want to watch all those birthday/wedding/christmas videos
+at some point in time again, but most of the files will not be accessed for long periods of time.
 
+Uploading data into the cloud can be a privacy issue. Therefore it should be encrypted beforehand. [EncFS](http://en.wikipedia.org/wiki/EncFS) is a filebased
+encryption method using ciphers like AES. Optionally it can encrypt filenames as well.
+
+FrozenNas solves following problem: Data and names of your files are encrypted by EncFS and uploaded to Amazon S3. To minimize costs the Glacier storage class is used.
+Various software and the AWS console is available to restore a specific file for the glacier. But which one is it? The filenames are encrypted. FrozenNas lets you
+browse your S3 bucket presenting decrypted filenames. It provides the possibility to initiate a restore request or download an already restored file directly to your
+Android device.
 
 WARNING: At the time of writing upload and storage using Glacier storage class is kind of cheap. Instead __restoring__ can cause significant costs! It is based on file size and the complete amount of data stored.
 Try to avoid restoring data (especially big files), which does not have to. Please refer to the S3 price list for details.  
