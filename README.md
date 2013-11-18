@@ -72,7 +72,7 @@ To install the application on your Android device:
 + EncFS Volume File - Choose the xml file, which was used to encrypt your data (usually ".encfs6.xml")
 + Days Of Availability After Restore - Remember: For every day a file is restored from the glacier an additional copy is created in S3. This copy apply for the usual S3 charges.
 
-Cryptographic Software Notice
+Privacy Security Warning
 -----------------------------
 
 Please be aware that this is work-in-progress in a very early alpha stage. You are entering your AWS credentials
@@ -94,7 +94,7 @@ Documentation
 
 README.md is currently the only documentation available.
 
-Additiona Credits
+Additional Credits
 -----------------
 
 FrozenNas is using the beautiful [ice-cube icon] (http://openclipart.org/detail/181701/ice-cube-by-lekamie-181701) by [lekamie] (http://openclipart.org/user-detail/lekamie)
