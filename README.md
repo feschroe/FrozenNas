@@ -4,8 +4,8 @@ FrozenNas
 What is it?
 -----------
 
-FrozenNas is a [Amazon S3] (http://aws.amazon.com/s3/) client supporting Glacier storage class in combination with [EncFS](http://en.wikipedia.org/wiki/EncFS) for Android.
-Files stored in Amazon S3 using Glacier storage class have to be "restored" first. 3 to 5 hours later a download is possible.
+FrozenNas is an [Amazon S3] (http://aws.amazon.com/s3/) client supporting [glacier storage class] (http://docs.aws.amazon.com/AmazonS3/latest/dev/object-archival.html) in combination with [EncFS](http://en.wikipedia.org/wiki/EncFS) for Android.
+Files stored in Amazon S3 using glacier storage class have to be "restored" first. 3 to 5 hours later a download is possible.
 For privacy reasons it makes sense to encrypt your files before uploading them to a cloudservice like Amazon S3. Using [EncFS](http://en.wikipedia.org/wiki/EncFS) supports content as well as filename 
 encryption. FrozenNas lets you select, restore, download and decrypt files from Amazon S3, which content and filenames were encrypted using [EncFS](http://en.wikipedia.org/wiki/EncFS) or compatibles (e.g. [Boxcryptor classic] (https://www.boxcryptor.com/en/boxcryptor-classic))
  
@@ -13,7 +13,7 @@ Why to use it?
 --------------
 
 Cloud data storage is a useful service to replace your home NAS [Network Attached Storage] (http://en.wikipedia.org/wiki/Network-attached_storage).
-Unfortunately bigger amounts of data can still be pricey. Amazon offers to store your files using a special Glacier storage class to minimize costs.
+Unfortunately bigger amounts of data can still be pricey. Amazon offers to store your files using a special glacier storage class to minimize costs.
 This comes with limited availability. Files with this storage class has to be "restored", which usually takes 3-5 hours before they can be accessed.
 For files which are rarely needed like your home video collection, this can be an acceptable limitation. You will definitely want to watch all those birthday/wedding/christmas videos
 at some point in time again, but most of the files will not be accessed for long periods of time.
@@ -21,12 +21,12 @@ at some point in time again, but most of the files will not be accessed for long
 Uploading data into the cloud can be a privacy issue. Therefore it should be encrypted beforehand. [EncFS](http://en.wikipedia.org/wiki/EncFS) is a filebased
 encryption method using ciphers like AES. Optionally it can encrypt filenames as well.
 
-FrozenNas solves following problem: Data and names of your files are encrypted by EncFS and uploaded to Amazon S3. To minimize costs the Glacier storage class is used.
-Various software and the AWS console is available to restore a specific file for the glacier. But which one is it? The filenames are encrypted. FrozenNas lets you
+FrozenNas solves following problem: Data and names of your files are encrypted by EncFS and uploaded to Amazon S3. To minimize costs glacier storage class is used.
+Various software and the AWS console is available to restore a specific file from the glacier. But which one is it? The filenames are encrypted! FrozenNas lets you
 browse your S3 bucket presenting decrypted filenames. It provides the possibility to initiate a restore request or download an already restored file directly to your
 Android device.
 
-WARNING: At the time of writing upload and storage using Glacier storage class is kind of cheap. Instead __restoring__ can cause significant costs! It is based on file size and the complete amount of data stored.
+WARNING: At the time of writing upload and storage using glacier storage class is kind of cheap. Instead __restoring__ can cause significant costs! It is based on file size and the complete amount of data stored.
 Try to avoid restoring data (especially big files), which does not have to. Please refer to the S3 price list for details.  
 
 Installation
@@ -57,25 +57,25 @@ It can be compiled using the Android Development Tools Bundle. Following librari
 + aFileDialog-1.02-Full.zip
 aFileDialog source code has to be present as "is Library" project, cause it is referenced by FrozenNas project.
 
-To install the application on your Android devic
+To install the application on your Android device:
 
 1. install the APK file
-2. copy the ".encfs6.xml" file which was used to encrypt your data to your android device (the filename is irrelevant)
+2. copy the ".encfs6.xml" file, which was used to encrypt your data, to your android device (the filename is irrelevant)
 3. open FrozenNas application
 4. click the settings icon in the upper right of the action bar
 5. set all preferences
-+ S3 Access Key - can be found using [AWS console] (http://aws.amazon.com/console/) 
-+ S3 Secret Key - can be found using [AWS console] (http://aws.amazon.com/console/)
++ S3 Access Key - Your access S3 key, can be found/generated using [AWS console] (http://aws.amazon.com/console/) 
++ S3 Secret Key - Your secret S3 key, can be found/generated using [AWS console] (http://aws.amazon.com/console/)
 + S3 Bucket - S3 bucket, where your data is stored
 + Encrypted Root Folder - Root folder, which contains encrypted files and folders
 + EncFS password - Your secret EncFS password
 + EncFS Volume File - Choose the xml file, which was used to encrypt your data (usually ".encfs6.xml")
-+ Days Of Availability After Restore - Remember: For every day a file is restored from the Glacier an additional copy is created in S3. This copy apply for the usual S3 charges.
++ Days Of Availability After Restore - Remember: For every day a file is restored from the glacier an additional copy is created in S3. This copy apply for the usual S3 charges.
 
 Cryptographic Software Notice
 -----------------------------
 
-Please be aware that this is work-in-progress in an very early alpha stage. You are entering your AWS credentials
+Please be aware that this is work-in-progress in a very early alpha stage. You are entering your AWS credentials
 and EncFS password/keyfile at your own risk. Your passwords are currently stored in plain text. No measures
 have been taken to prevent them from being stolen or deleted. 
 
