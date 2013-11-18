@@ -26,7 +26,7 @@ Various software and the AWS console is available to restore a specific file fro
 browse your S3 bucket presenting decrypted filenames. It provides the possibility to initiate a restore request or download an already restored file directly to your
 Android device.
 
-WARNING: At the time of writing upload and storage using glacier storage class is kind of cheap. Instead __restoring__ can cause significant costs! It is based on file size and the complete amount of data stored.
+__WARNING__: At the time of writing upload and storage using glacier storage class is kind of cheap. Instead _restoring_ can cause significant costs! It is based on file size and the complete amount of data stored.
 Try to avoid restoring data (especially big files), which does not have to. Please refer to the S3 price list for details.  
 
 Installation
