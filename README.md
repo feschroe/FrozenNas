@@ -39,8 +39,8 @@ It can be compiled using the Android Development Tools Bundle. Following librari
 + aws-android-sdk-1.6.1-core
 + aws-android-sdk-1.6.1-s3
 
-[Apache Commons IO]
-+ commons-io-2.4 (http://commons.apache.org/proper/commons-io/)
+[Apache Commons IO] (http://commons.apache.org/proper/commons-io/)
++ commons-io-2.4 
 
 [Java EncFS Reader] (https://code.google.com/p/jefsr/)
 + jefsr-0.5
