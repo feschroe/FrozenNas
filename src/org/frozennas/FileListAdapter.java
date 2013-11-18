@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,23 +20,26 @@ public class FileListAdapter extends ArrayAdapter<MyS3ObjectSummary> {
 	private Context context;
 		
 	public FileListAdapter(List<MyS3ObjectSummary> itemList, Context ctx) {
-		super(ctx, android.R.layout.simple_list_item_1, itemList);
+		super(ctx, R.layout.list_item, itemList);
 		this.itemList = itemList;
 		this.context = ctx;		
 	}
-	
-/*	public int getCount() {
+
+	@Override
+	public int getCount() {
 		if (itemList != null)
 			return itemList.size();
 		return 0;
 	}
-
+	
+	@Override
 	public MyS3ObjectSummary getItem(int position) {
 		if (itemList != null)
 			return itemList.get(position);
 		return null;
 	}
-
+	
+/*
 	public long getItemId(int position) {
 		if (itemList != null)
 			return itemList.get(position).hashCode();
@@ -57,7 +61,7 @@ public class FileListAdapter extends ArrayAdapter<MyS3ObjectSummary> {
 		
 		//image
 		ImageView imageView = (ImageView) v.findViewById(R.id.logo);
-		//imageView.setClickable(false);
+		imageView.setClickable(false);
 		
 
 		if (obj.isFolder()) {
@@ -70,11 +74,12 @@ public class FileListAdapter extends ArrayAdapter<MyS3ObjectSummary> {
 		//name
 		TextView text = (TextView) v.findViewById(R.id.name);
 		//root folder
+		text.setText(decryptedname);
 		if(decryptedname.lastIndexOf("/") == -1){
 			text.setText(decryptedname);
 		} else {
 			text.setText(decryptedname.substring(decryptedname.lastIndexOf("/")+1));
-		}	
+		}
 			
 		//storageclass	
 		TextView text1 = (TextView) v.findViewById(R.id.storageclass);

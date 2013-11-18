@@ -31,6 +31,8 @@ import ar.com.daidalos.afiledialog.FileChooserDialog;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.ClientConfiguration;
+import com.amazonaws.Protocol;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
@@ -94,19 +96,12 @@ public class MainActivity extends Activity implements RestoreObjectDialog.Restor
         
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         s3accesskey_preference = sharedPref.getString("s3accesskey_preference", ""); 
-        //Log.v(Constants.TAG, "s3accesskey_preference: " + s3accesskey_preference);
         s3seckey_preference = sharedPref.getString("s3seckey_preference", "");
-        //Log.v(Constants.TAG, "s3seckey_preference: " + s3seckey_preference);
         s3bucket_preference = sharedPref.getString("s3bucket_preference", "");
-        //Log.v(Constants.TAG, "s3bucket_preference: " + s3bucket_preference);
         s3rootfolder_preference = sharedPref.getString("s3rootfolder_preference", "");
-        //Log.v(Constants.TAG, "s3rootfolder_preference: " + s3rootfolder_preference);
         encfskey_preference = sharedPref.getString("encfskey_preference", "");
-        //Log.v(Constants.TAG, "encfskey_preference: " + encfskey_preference);
         availabilitydays_preference = sharedPref.getString("availabilitydays_preference", "");
-        //Log.v(Constants.TAG, "availabilitydays_preference: " + availabilitydays_preference);
         encfsvolumefile_preference = sharedPref.getString("encfsvolumefile_preference", "");
-        //Log.v(Constants.TAG, "encfsvolumefile_preference: " + encfsvolumefile_preference);
    
         preferences_updated = true;
         
@@ -115,9 +110,13 @@ public class MainActivity extends Activity implements RestoreObjectDialog.Restor
         
         backbutton = (Button) findViewById(R.id.button1);
         addListenerOnButton();
-        						
-        adpt  = new FileListAdapter(new ArrayList<MyS3ObjectSummary>(), this);
+        
+        //FileListAdapter needs dummy element for creation
+        ArrayList<MyS3ObjectSummary> dummylist = new ArrayList<MyS3ObjectSummary>();
+        dummylist.add(new MyS3ObjectSummary("dummy"));
+        adpt  = new FileListAdapter(dummylist, this);
         lView = (ListView) findViewById(R.id.listview);
+        lView.setVisibility(View.GONE);
         lView.setAdapter(adpt);
 
         lView.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -181,19 +180,26 @@ public class MainActivity extends Activity implements RestoreObjectDialog.Restor
         super.onStart(); 
 
         backbutton.setClickable(false);
-        lView.setClickable(false);
+        //lView.setClickable(false);
         
         if(preferences_updated && checkPreferences()) {
             //reinitiate after preference change
+        	Log.v(Constants.TAG, "reinitiate after preference change");
 
         	encfsvolume = null;
+
+        	//workaround for buckets containing dots. WTF!!
+        	ClientConfiguration clientConfig = new ClientConfiguration();
+        	clientConfig.setProtocol(Protocol.HTTP);
         	
         	try{
         	s3Client = new AmazonS3Client(
-        			new BasicAWSCredentials(s3accesskey_preference, s3seckey_preference)
+        			new BasicAWSCredentials(s3accesskey_preference, s3seckey_preference), clientConfig
         			);
 
-        	s3Client.setRegion(Region.getRegion(Regions.EU_WEST_1));
+        	//s3Client.setRegion(Region.getRegion(Regions.EU_WEST_1));        	
+        	//s3Client.setEndpoint("s3-eu-west-1.amazonaws.com");
+        	
         	tx = new TransferManager(s3Client);
         	} catch (Exception e) {
         		Log.v(Constants.TAG, "Exception: " + e.getMessage());
@@ -201,7 +207,7 @@ public class MainActivity extends Activity implements RestoreObjectDialog.Restor
         	currentfolder = s3rootfolder_preference;
         	
         	backbutton.setClickable(true);
-        	lView.setClickable(true);
+        	//lView.setClickable(true);
         	
         	preferences_updated = false;
         	
@@ -222,8 +228,7 @@ public class MainActivity extends Activity implements RestoreObjectDialog.Restor
         String new_encfskey_preference = sharedPref.getString("encfskey_preference", "");
         String new_availabilitydays_preference = sharedPref.getString("availabilitydays_preference", "");
         String new_encfsvolumefile_preference = sharedPref.getString("encfsvolumefile_preference", "");
-        Log.v(Constants.TAG, "restart: new_encfsvolumefile_preference: " + new_encfsvolumefile_preference);
-        
+                
 		if (!s3accesskey_preference.equals(new_s3accesskey_preference)) {
 			s3accesskey_preference = new_s3accesskey_preference;
 			preferences_updated = true;
@@ -252,7 +257,6 @@ public class MainActivity extends Activity implements RestoreObjectDialog.Restor
 			encfsvolumefile_preference = new_encfsvolumefile_preference;
 			preferences_updated = true;
 		}
-		
     }    
     
 	private boolean checkPreferences() {
@@ -271,7 +275,7 @@ public class MainActivity extends Activity implements RestoreObjectDialog.Restor
 		) {
 			check_result = true;
 		}
-			
+		
 		return check_result;
 	}
 
@@ -303,7 +307,6 @@ public class MainActivity extends Activity implements RestoreObjectDialog.Restor
 		});		
 	}
 
-
     private class AsyncListViewLoader extends AsyncTask<String, Void, List<MyS3ObjectSummary>> {
     	private final ProgressDialog dialog = new ProgressDialog(MainActivity.this);
     	
@@ -312,8 +315,9 @@ public class MainActivity extends Activity implements RestoreObjectDialog.Restor
 			super.onPostExecute(result);
 			
 			dialog.dismiss();
-			adpt.setItemList(result);
+			adpt.setItemList(result);			
 			adpt.notifyDataSetChanged();
+			lView.setVisibility(View.VISIBLE);
 		}
 
 		@Override
@@ -336,7 +340,6 @@ public class MainActivity extends Activity implements RestoreObjectDialog.Restor
 			
 				//init decryption asyncronously
 				if (encfsvolume == null) {
-					//encfsvolume = new az.jefsr.Volume(".encfs6.xml", getAssets().open("mydata.xml"));
 					encfsvolume = new az.jefsr.Volume(".encfs6.xml", new FileInputStream(encfsvolumefile_preference));
 					encfsvolume.init(encfskey_preference);
 				}
@@ -367,7 +370,7 @@ public class MainActivity extends Activity implements RestoreObjectDialog.Restor
 							//do not add current folder to list
 							if(!mos.getKey().equals(params[0])) {
 								mos.setDecryptedKey(decryptedkey);
-								mys3object_list.add(mos);			
+								mys3object_list.add(mos);	
 							}							
 
 						} catch (CipherDataException e) {
@@ -464,7 +467,6 @@ public class MainActivity extends Activity implements RestoreObjectDialog.Restor
 		protected String doInBackground(String... params) {
 			String result = "";
 			
-            Log.v(Constants.TAG, params[0]);
 			GetObjectMetadataRequest requestCheck = new GetObjectMetadataRequest(s3bucket_preference, params[0]);
             ObjectMetadata response = s3Client.getObjectMetadata(requestCheck);
             try{

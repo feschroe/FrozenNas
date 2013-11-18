@@ -36,8 +36,8 @@ You can find the most current code at [github.com/feschroe/FrozenNas] (https://g
 It can be compiled using the Android Development Tools Bundle. Following libraries are used:
 
 [Amazon Android SDK] (http://aws.amazon.com/sdkforandroid/)
-+ aws-android-sdk-1.6.1-core
-+ aws-android-sdk-1.6.1-s3
++ aws-android-sdk-1.7.0-core
++ aws-android-sdk-1.7.0-s3
 
 [Apache Commons IO] (http://commons.apache.org/proper/commons-io/)
 + commons-io-2.4 
@@ -66,8 +66,8 @@ To install the application on your Android device:
 5. set all preferences
 + S3 Access Key - Your access S3 key, can be found/generated using [AWS console] (http://aws.amazon.com/console/) 
 + S3 Secret Key - Your secret S3 key, can be found/generated using [AWS console] (http://aws.amazon.com/console/)
-+ S3 Bucket - S3 bucket, where your data is stored
-+ Encrypted Root Folder - Root folder, which contains encrypted files and folders
++ S3 Bucket - S3 bucket, where your data is stored e.g. "mybucket" (without double quotes)
++ Encrypted Root Folder - Root folder, which contains encrypted files and folders e.g. "mydata.bc/" (without double quotes, no leading "/")
 + EncFS password - Your secret EncFS password
 + EncFS Volume File - Choose the xml file, which was used to encrypt your data (usually ".encfs6.xml")
 + Days Of Availability After Restore - Remember: For every day a file is restored from the glacier an additional copy is created in S3. This copy apply for the usual S3 charges.
@@ -87,7 +87,7 @@ Please see the file called LICENSE.
 The Latest Version
 ------------------
 
-2013.11.18 First release 
+2013.11.18 First release
 
 Documentation
 -------------
