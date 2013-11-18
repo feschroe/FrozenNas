@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+        <EditTextPreference
+                android:key="s3accesskey_preference"
+                android:title="@string/s3accesskey_preference"
+                android:summary="@string/summary_edittext_preference"
+                android:dialogTitle="@string/dialog_title_s3accesskey_preference" />
+        <EditTextPreference
+                android:key="s3seckey_preference"
+                android:title="@string/s3seckey_preference"
+                android:summary="@string/summary_edittext_preference"
+                android:dialogTitle="@string/dialog_title_s3seckey_preference" />        
+      	<EditTextPreference
+                android:key="s3bucket_preference"
+                android:title="@string/s3bucket_preference"
+                android:summary="@string/summary_edittext_preference"
+                android:dialogTitle="@string/dialog_title_s3bucket_preference" />
+      	<EditTextPreference
+                android:key="s3rootfolder_preference"
+                android:title="@string/s3rootfolder_preference"
+                android:summary="@string/summary_edittext_preference"
+                android:dialogTitle="@string/dialog_title_s3rootfolder_preference" />
+		<EditTextPreference
+                android:key="encfskey_preference"
+                android:title="@string/encfskey_preference"
+                android:summary="@string/summary_edittext_preference"
+                android:dialogTitle="@string/dialog_title_encfskey_preference" />
+		<EditTextPreference
+                android:key="encfsvolumefile_preference"
+                android:title="@string/encfsvolumefile_preference"
+                android:summary="@string/summary_edittext_preference" />
+		<ListPreference
+	        android:key="availabilitydays_preference"
+	        android:title="@string/availabilitydays_preference"
+	        android:dialogTitle="@string/availabilitydays_preference_title"
+	        android:entries="@array/pref_availabilitydays_entries"
+	        android:entryValues="@array/pref_availabilitydays_values"
+	        android:defaultValue="@string/pref_availabilitydays_default" />
+	          	      	
+</PreferenceScreen>
