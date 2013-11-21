@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Frozennas by feschroe</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Frozennas</h1>
+          <h2>Amazon S3 client supporting Glacier storage class in combination with EncFS for Android</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/feschroe/FrozenNas/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/feschroe/FrozenNas/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/feschroe/FrozenNas" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a name="frozennas" class="anchor" href="#frozennas"><span class="octicon octicon-link"></span></a>FrozenNas</h1>
+
+<h2>
+<a name="what-is-it" class="anchor" href="#what-is-it"><span class="octicon octicon-link"></span></a>What is it?</h2>
+
+<p>FrozenNas is an <a href="http://aws.amazon.com/s3/">Amazon S3</a> client supporting <a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/object-archival.html">glacier storage class</a> in combination with <a href="http://en.wikipedia.org/wiki/EncFS">EncFS</a> for Android.
+Files stored in Amazon S3 using glacier storage class have to be "restored" first. 3 to 5 hours later a download is possible.
+For privacy reasons it makes sense to encrypt your files before uploading them to a cloudservice like Amazon S3. Using <a href="http://en.wikipedia.org/wiki/EncFS">EncFS</a> supports content as well as filename 
+encryption. FrozenNas lets you select, restore, download and decrypt files from Amazon S3, which content and filenames were encrypted using <a href="http://en.wikipedia.org/wiki/EncFS">EncFS</a> or compatibles (e.g. <a href="https://www.boxcryptor.com/en/boxcryptor-classic">Boxcryptor classic</a>)</p>
+
+<h2>
+<a name="why-to-use-it" class="anchor" href="#why-to-use-it"><span class="octicon octicon-link"></span></a>Why to use it?</h2>
+
+<p>Cloud data storage is a useful service to replace your home NAS <a href="http://en.wikipedia.org/wiki/Network-attached_storage">Network Attached Storage</a>.
+Unfortunately bigger amounts of data can still be pricey. Amazon offers to store your files using a special glacier storage class to minimize costs.
+This comes with limited availability. Files with this storage class has to be "restored", which usually takes 3-5 hours before they can be accessed.
+For files which are rarely needed like your home video collection, this can be an acceptable limitation. You will definitely want to watch all those birthday/wedding/christmas videos
+at some point in time again, but most of the files will not be accessed for long periods of time.</p>
+
+<p>Uploading data into the cloud can be a privacy issue. Therefore it should be encrypted beforehand. <a href="http://en.wikipedia.org/wiki/EncFS">EncFS</a> is a filebased
+encryption method using ciphers like AES. Optionally it can encrypt filenames as well.</p>
+
+<p>FrozenNas solves following problem: Data and names of your files are encrypted by EncFS and uploaded to Amazon S3. To minimize costs glacier storage class is used.
+Various software and the AWS console is available to restore a specific file from the glacier. But which one is it? The filenames are encrypted! FrozenNas lets you
+browse your S3 bucket presenting decrypted filenames. It provides the possibility to initiate a restore request or download an already restored file directly to your
+Android device.</p>
+
+<p><strong>WARNING</strong>: At the time of writing upload and storage using glacier storage class is kind of cheap. Instead <em>restoring</em> can cause significant costs! It is based on file size and the complete amount of data stored.
+Try to avoid restoring data (especially big files), which does not have to. Please refer to the S3 price list for details.  </p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>You can find the most current code at <a href="https://github.com/feschroe/FrozenNas">github.com/feschroe/FrozenNas</a>.
+It can be compiled using the Android Development Tools Bundle. Following libraries are used:</p>
+
+<p><a href="http://aws.amazon.com/sdkforandroid/">Amazon Android SDK</a></p>
+
+<ul>
+<li>aws-android-sdk-1.7.0-core</li>
+<li>aws-android-sdk-1.7.0-s3</li>
+</ul><p><a href="http://commons.apache.org/proper/commons-io/">Apache Commons IO</a></p>
+
+<ul>
+<li>commons-io-2.4 </li>
+</ul><p><a href="https://code.google.com/p/jefsr/">Java EncFS Reader</a></p>
+
+<ul>
+<li>jefsr-0.5</li>
+</ul><p><a href="http://www.bouncycastle.org/">Bouncy Castle Crypto APIs</a></p>
+
+<ul>
+<li>sc-light-jdk15on-1.47.0.2</li>
+<li>scpkix-jdk15on-1.47.0.2</li>
+<li>scprov-jdk15on-1.47.0.2</li>
+</ul><p><a href="http://xstream.codehaus.org/">XStream</a></p>
+
+<ul>
+<li>xstream-1.4.4</li>
+</ul><p><a href="https://code.google.com/p/afiledialog/">aFileDialog</a></p>
+
+<ul>
+<li>aFileDialog-1.02-Full.zip
+aFileDialog source code has to be present as "is Library" project, cause it is referenced by FrozenNas project.</li>
+</ul><p>To install the application on your Android device:</p>
+
+<ol>
+<li>install the APK file</li>
+<li>copy the ".encfs6.xml" file, which was used to encrypt your data, to your android device (the filename is irrelevant)</li>
+<li>open FrozenNas application</li>
+<li>click the settings icon in the upper right of the action bar</li>
+<li>set all preferences</li>
+<li>S3 Access Key - Your access S3 key, can be found/generated using <a href="http://aws.amazon.com/console/">AWS console</a> </li>
+<li>S3 Secret Key - Your secret S3 key, can be found/generated using <a href="http://aws.amazon.com/console/">AWS console</a>
+</li>
+<li>S3 Bucket - S3 bucket, where your data is stored e.g. "mybucket" (without double quotes)</li>
+<li>Encrypted Root Folder - Root folder, which contains encrypted files and folders e.g. "mydata.bc/" (without double quotes, no leading "/")</li>
+<li>EncFS password - Your secret EncFS password</li>
+<li>EncFS Volume File - Choose the xml file, which was used to encrypt your data (usually ".encfs6.xml")</li>
+<li>Days Of Availability After Restore - Remember: For every day a file is restored from the glacier an additional copy is created in S3. This copy apply for the usual S3 charges.</li>
+</ol><h2>
+<a name="privacy-security-warning" class="anchor" href="#privacy-security-warning"><span class="octicon octicon-link"></span></a>Privacy Security Warning</h2>
+
+<p>Please be aware that this is work-in-progress in a very early alpha stage. You are entering your AWS credentials
+and EncFS password/keyfile at your own risk. Your passwords are currently stored in plain text. No measures
+have been taken to prevent them from being stolen or deleted. </p>
+
+<h2>
+<a name="licensing" class="anchor" href="#licensing"><span class="octicon octicon-link"></span></a>Licensing</h2>
+
+<p>Please see the file called LICENSE.</p>
+
+<h2>
+<a name="the-latest-version" class="anchor" href="#the-latest-version"><span class="octicon octicon-link"></span></a>The Latest Version</h2>
+
+<p>2013.11.18 First release</p>
+
+<h2>
+<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
+
+<p>README.md is currently the only documentation available.</p>
+
+<h2>
+<a name="additional-credits" class="anchor" href="#additional-credits"><span class="octicon octicon-link"></span></a>Additional Credits</h2>
+
+<p>FrozenNas is using the beautiful <a href="http://openclipart.org/detail/181701/ice-cube-by-lekamie-181701">ice-cube icon</a> by <a href="http://openclipart.org/user-detail/lekamie">lekamie</a></p>
+
+<h2>
+<a name="contacts" class="anchor" href="#contacts"><span class="octicon octicon-link"></span></a>Contacts</h2>
+
+<p>Felix Schroeder <a href="mailto:mail@frozennas.org">mail@frozennas.org</a></p>
+        </section>
+
+        <footer>
+          Frozennas is maintained by <a href="https://github.com/feschroe">feschroe</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
