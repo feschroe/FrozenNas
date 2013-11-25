@@ -113,6 +113,70 @@ aFileDialog source code has to be present as "is Library" project, cause it is r
 <li>EncFS Volume File - Choose the xml file, which was used to encrypt your data (usually ".encfs6.xml")</li>
 <li>Days Of Availability After Restore - Remember: For every day a file is restored from the glacier an additional copy is created in S3. This copy apply for the usual S3 charges.</li>
 </ol><h2>
+<a name="encfs--glacier--frozennas-step-by-step-guide" class="anchor" href="#encfs--glacier--frozennas-step-by-step-guide"><span class="octicon octicon-link"></span></a>EncFS &amp; Glacier &amp; FrozenNas Step-By-Step Guide</h2>
+
+<p>You should be fimilar with EncFS. Otherwise start <a href="http://en.wikipedia.org/wiki/EncFS">here</a> or <a href="http://www.arg0.net/encfs">here</a>.</p>
+
+<p>1. Create an encrypted EncFS folder (e.g. "FrozenNas.bc") with following parameters:</p>
+
+<ul>
+<li>Cipher: AES</li>
+<li>Filename encryption: Stream</li>
+</ul><p>The ".encfs6.xml" file located in the encrypted folder should contain these lines:</p>
+
+<pre><code>`&lt;cipherAlg class_id="1" tracking_level="0" version="0"&gt;
+  &lt;name&gt;ssl/aes&lt;/name&gt;
+  &lt;major&gt;3&lt;/major&gt;
+  &lt;minor&gt;0&lt;/minor&gt;
+&lt;/cipherAlg&gt;
+&lt;nameAlg&gt;
+  &lt;name&gt;nameio/stream&lt;/name&gt;
+  &lt;major&gt;2&lt;/major&gt;
+  &lt;minor&gt;1&lt;/minor&gt;
+&lt;/nameAlg&gt;
+&lt;keySize&gt;256&lt;/keySize&gt;
+&lt;uniqueIV&gt;0&lt;/uniqueIV&gt;
+&lt;chainedNameIV&gt;0&lt;/chainedNameIV&gt;
+&lt;externalIVChaining&gt;0&lt;/externalIVChaining&gt;
+&lt;blockMACBytes&gt;0&lt;/blockMACBytes&gt;
+&lt;blockMACRandBytes&gt;0&lt;/blockMACRandBytes&gt;`
+</code></pre>
+
+<p>2. Copy some files into it (e.g. FrozenNas.apk). Your encrypted folder will look similar to this:</p>
+
+<p><img src="https://github.com/feschroe/FrozenNas/raw/gh-pages/images/Folder_example.JPG" alt="Encrypted EncFS folder" title="Encrypted EncFS folder"></p>
+
+<p>3. Create a new Amazon S3 bucket (e.g. FrozenNas).</p>
+
+<p><img src="https://github.com/feschroe/FrozenNas/raw/gh-pages/images/S3_bucket.JPG" alt="Create new bucket" title="Create new bucket"></p>
+
+<p>4. Adjust the lifecycle parameters of this bucket to move all files into the glacier.</p>
+
+<p><img src="https://github.com/feschroe/FrozenNas/raw/gh-pages/images/S3_lifetime.JPG" alt="Adjust Lifecycle" title="Adjust Lifecycle"></p>
+
+<p>5. Move your encrypted folder (including files) into the S3 bucket. It is NOT necessary to include the EncFS XML here (e.g. ".encfs6.xml").
+This increases security of your encrypted data, cause the decryption key will be stored seperately!</p>
+
+<p><img src="https://github.com/feschroe/FrozenNas/raw/gh-pages/images/S3_folder.JPG" alt="Uploaded EncFS folder" title="Uploaded EncFS folder"></p>
+
+<p>6. Copy the ".encfs6.xml" file to your phone.</p>
+
+<p>7. Install FrozenNas on your phone. </p>
+
+<ul>
+<li>S3 Access Key - Your access S3 key, can be found/generated using <a href="http://aws.amazon.com/console/">AWS console</a> </li>
+<li>S3 Secret Key - Your secret S3 key, can be found/generated using <a href="http://aws.amazon.com/console/">AWS console</a>
+</li>
+<li>S3 Bucket - here: "frozennas"</li>
+<li>Encrypted Root Folder - "FrozenNas.bc/"</li>
+<li>EncFS password - Your secret EncFS password</li>
+<li>EncFS Volume File - Choose the xml file, which was copied in the previous step.</li>
+<li>Days Of Availability After Restore - Remember: For every day a file is restored from the glacier an additional copy is created in S3. This copy apply for the usual S3 charges.</li>
+</ul><p>8. Enjoy decrypted file names on your phone. Short "click" on a file will ask to restore/download the file. Long "click" on a file will show the encrypted filename.</p>
+
+<p><img src="https://raw.github.com/feschroe/FrozenNas/gh-pages/images/frozennas_app.JPG" alt="FrozenNas App" title="FrozenNas App"></p>
+
+<h2>
 <a name="privacy-security-warning" class="anchor" href="#privacy-security-warning"><span class="octicon octicon-link"></span></a>Privacy Security Warning</h2>
 
 <p>Please be aware that this is work-in-progress in a very early alpha stage. You are entering your AWS credentials
