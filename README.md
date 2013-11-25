@@ -77,7 +77,7 @@ EncFS & Glacier & FrozenNas Step-By-Step Guide
 
 You should be fimilar with EncFS. Otherwise start [here](http://en.wikipedia.org/wiki/EncFS) or [here](http://www.arg0.net/encfs).
 
-1. Create an encrypted EncFS folder (e.g. "FrozenNas.bc") with following parameters:
+1\. Create an encrypted EncFS folder (e.g. "FrozenNas.bc") with following parameters:
 + Cipher: AES
 + Filename encryption: Stream
 
@@ -101,26 +101,26 @@ The ".encfs6.xml" file located in the encrypted folder should contain these line
     <blockMACRandBytes>0</blockMACRandBytes>`
     
 
-2. Copy some files into it (e.g. FrozenNas.apk). Your encrypted folder will look similar to this:
+2\. Copy some files into it (e.g. FrozenNas.apk). Your encrypted folder will look similar to this:
 
 ![Encrypted EncFS folder](https://github.com/feschroe/FrozenNas/raw/gh-pages/images/Folder_example.JPG "Encrypted EncFS folder")
 
-3. Create a new Amazon S3 bucket (e.g. FrozenNas).
+3\. Create a new Amazon S3 bucket (e.g. FrozenNas).
 
 ![Create new bucket](https://github.com/feschroe/FrozenNas/raw/gh-pages/images/S3_bucket.JPG "Create new bucket")
 
-4. Adjust the lifecycle parameters of this bucket to move all files into the glacier.
+4\. Adjust the lifecycle parameters of this bucket to move all files into the glacier.
 
 ![Adjust Lifecycle](https://github.com/feschroe/FrozenNas/raw/gh-pages/images/S3_lifetime.JPG "Adjust Lifecycle")
 
-5. Move your encrypted folder (including files) into the S3 bucket. It is NOT necessary to include the EncFS XML here (e.g. ".encfs6.xml").
-This increases the security of your encrypted data, cause the decryption key will be stored seperately!
+5\. Move your encrypted folder (including files) into the S3 bucket. It is NOT necessary to include the EncFS XML here (e.g. ".encfs6.xml").
+This increases security of your encrypted data, cause the decryption key will be stored seperately!
  
 ![Uploaded EncFS folder](https://github.com/feschroe/FrozenNas/raw/gh-pages/images/S3_folder.JPG "Uploaded EncFS folder")
 
-6. Copy the ".encfs6.xml" file to your phone.
+6\. Copy the ".encfs6.xml" file to your phone.
 
-7. Install FrozenNas on your phone. 
+7\. Install FrozenNas on your phone. 
 
 + S3 Access Key - Your access S3 key, can be found/generated using [AWS console] (http://aws.amazon.com/console/) 
 + S3 Secret Key - Your secret S3 key, can be found/generated using [AWS console] (http://aws.amazon.com/console/)
@@ -130,7 +130,8 @@ This increases the security of your encrypted data, cause the decryption key wil
 + EncFS Volume File - Choose the xml file, which was copied in the previous step.
 + Days Of Availability After Restore - Remember: For every day a file is restored from the glacier an additional copy is created in S3. This copy apply for the usual S3 charges.
 
-8. Enjoy decrypted file names on your phone. Short "click" on a file will ask to restore/download the file. Long "clock" on a file will show the encrypted filename.
+8\. Enjoy decrypted file names on your phone. Short "click" on a file will ask to restore/download the file. Long "click" on a file will show the encrypted filename.
+
 ![FrozenNas App](https://raw.github.com/feschroe/FrozenNas/gh-pages/images/frozennas_app.JPG "FrozenNas App")
 
 
