@@ -102,13 +102,13 @@ The ".encfs6.xml" file located in the encrypted folder should contain these line
     
 
 2. Copy some files into it (e.g. FrozenNas.apk). Your encrypted folder will look similar to this:
-![Encrypted EncFS folder](../images/Folder_example.JPG "Encrypted EncFS folder")
+![Encrypted EncFS folder](https://github.com/feschroe/FrozenNas/raw/gh-pages/images/Folder_example.JPG "Encrypted EncFS folder")
 
 3. Create a new Amazon S3 bucket (e.g. FrozenNas).
-![Create new bucket](../images/S3_bucket.JPG "Create new bucket")
+![Create new bucket](https://github.com/feschroe/FrozenNas/raw/gh-pages/images/S3_bucket.JPG "Create new bucket")
 
 4. Adjust the lifecycle parameters of this bucket to move all files into the glacier.
-![Adjust Lifecycle](../images/S3_lifetime.JPG "Adjust Lifecycle")
+![Adjust Lifecycle](https://github.com/feschroe/FrozenNas/raw/gh-pages/images/S3_lifetime.JPG "Adjust Lifecycle")
 
 5. Move your encrypted folder (including files) into the S3 bucket. It is NOT necessary to include the EncFS XML here (e.g. ".encfs6.xml").
 This increases the security of your encrypted data, cause the decryption key will be stored seperately! 
