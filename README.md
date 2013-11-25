@@ -112,7 +112,7 @@ The ".encfs6.xml" file located in the encrypted folder should contain these line
 
 5. Move your encrypted folder (including files) into the S3 bucket. It is NOT necessary to include the EncFS XML here (e.g. ".encfs6.xml").
 This increases the security of your encrypted data, cause the decryption key will be stored seperately! 
-![Uploaded EncFS folder](http://frozennas.org/images/S3_folder.JPG "Uploaded EncFS folder")
+![Uploaded EncFS folder](https://github.com/feschroe/FrozenNas/raw/gh-pages/images/S3_folder.JPG "Uploaded EncFS folder")
 
 6. Copy the ".encfs6.xml" file to your phone.
 
@@ -127,7 +127,7 @@ This increases the security of your encrypted data, cause the decryption key wil
 + Days Of Availability After Restore - Remember: For every day a file is restored from the glacier an additional copy is created in S3. This copy apply for the usual S3 charges.
 
 8. Enjoy decrypted file names on your phone. Short "click" on a file will ask to restore/download the file. Long "clock" on a file will show the encrypted filename.
-![FrozenNas App](http://frozennas.org/images/frozennas_app.JPG "FrozenNas App")
+![FrozenNas App](https://raw.github.com/feschroe/FrozenNas/gh-pages/images/frozennas_app.JPG "FrozenNas App")
 
 
 Privacy Security Warning
