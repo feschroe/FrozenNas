@@ -82,8 +82,7 @@ You should be fimilar with EncFS. Otherwise start [here](http://en.wikipedia.org
 
 The ".encfs6.xml" file located in the encrypted folder should contain these lines:
 
-<pre><code>
-    <cipherAlg class_id="1" tracking_level="0" version="0">
+    `<cipherAlg class_id="1" tracking_level="0" version="0">
       <name>ssl/aes</name>
       <major>3</major>
       <minor>0</minor>
@@ -98,8 +97,7 @@ The ".encfs6.xml" file located in the encrypted folder should contain these line
     <chainedNameIV>0</chainedNameIV>
     <externalIVChaining>0</externalIVChaining>
     <blockMACBytes>0</blockMACBytes>
-    <blockMACRandBytes>0</blockMACRandBytes>
-</code></pre>
+    <blockMACRandBytes>0</blockMACRandBytes>`
 
 2. Copy some files into it (e.g. FrozenNas.apk). Your encrypted folder will look similar to this:
 ![Encrypted EncFS folder](http://frozennas.org/images/Folder_example.JPG "Encrypted EncFS folder")
@@ -112,7 +110,7 @@ The ".encfs6.xml" file located in the encrypted folder should contain these line
 
 5. Move your encrypted folder (including files) into the S3 bucket. It is NOT necessary to include the EncFS XML here (e.g. ".encfs6.xml").
 This increases the security of your encrypted data, cause the decryption key will be stored seperately! 
-![Uploaded EncFS folder](http://frozennas.org/images/Folder_example.JPG "Uploaded EncFS folder")
+![Uploaded EncFS folder](http://frozennas.org/images/S3_folder.JPG "Uploaded EncFS folder")
 
 6. Copy the ".encfs6.xml" file to your phone.
 
